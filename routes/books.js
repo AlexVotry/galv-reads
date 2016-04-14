@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex');
@@ -48,49 +50,36 @@ router.get('/edit/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const book = books().insert({
+  const bookId = books().insert({
     title: req.body.title,
     genre: req.body.genre,
     description: req.body.description,
     cover: req.body.cover
   }, 'id');
-
-  // const author = authors().where('lname', req.body.lname).pluck('id').first();
-
-  const newAuthor = authors().insert({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    biography: req.body.biography,
-    portrait: req.body.portrait
-  }, 'id');
-
-  // if(author) {
-  //   authors_books().insert( {books_id: book, authors_id: author} ).then(() => {
-  //     console.log('author' + ' ' + book, author);
-  //     res.redirect('/books');
-  //   });
-  // } else {
-    authors_books().insert( {books_id: book, authors_id: newAuthor }).then(() => {
-      console.log('new author' + ' ' + book, newAuthor);
-      res.redirect('/books').catch((err) => {
+  const author = authors().where('authors.lname', req.body.lname).pluck('id').first();
+  Promise.all([bookId, author]).then((data) => {
+    if (!data[1]) {
+      authors().insert({
+        fname: req.body.fname,
+        lname: req.body.lname,
+        biography: req.body.biography,
+        portrait: req.body.portrait
+      }, 'id').then(() => {
+          res.redirect('/books');
+        });
+    } else {
+      authors_books().insert({books_id: data[0][0], authors_id: data[1].id}).then(() => {
+        res.redirect('/books');
+      }).catch((err) => {
         console.log(err);
       });
-    });
-  // }
-
+    };
+  });
 });
-//   books().insert({
-//     title: req.body.title,
-//     genre: req.body.genre,
-//     description: req.body.description,
-//     cover: req.body.cover
-//   }).then(() => {
-//     res.redirect('/books');
-//   })
-//     .catch((err) => {
-//     console.log(err)
-//   });
-// });
+
+function createAuthorBook(books_id, authors_id, callback) {
+  Number(books_id.toString());
+}
 
 router.put('/:id', (req, res, next) => {
   books().update({ title: req.body.title, genre: req.body.genre, description: req.body.description }).where({id: req.params.id}).then(() => {
