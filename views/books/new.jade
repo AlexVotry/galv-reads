@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  h1 Add a new book
+  
+  form(action='/books/', method='post')
+    #container
+      p Book Title:
+      input(type="text" name="title")
+      
+      p Genre:
+      input(type="text" name="genre")
+      
+      p Book cover url:
+      input(type="text" name="cover")
+      
+      p description:
+      textarea
+      
+      p Author's name:
+      input(type="text" name="fname" placeholder="first name")
+      input(type="text" name="lname" placeholder="last name")
+      
+      p Author's biography:
+      textarea
+      
+      p Author's picture:
+      input(type="text" name=portrait)
+      p
+      input(type="submit")

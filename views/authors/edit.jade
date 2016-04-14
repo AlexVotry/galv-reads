@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  h1= theAuthor.title
+
+  form(action="/books/" + theAuthor.id + "?_method=put", method="post")
+    div
+      p title
+      input(type="text" name="title" value=theAuthor.title)
+
+      //- p author
+      //- input(type="text" name="author" value=theAuthor.lname)
+      //-
+      p genre
+      input(type="text" name"genre" value=theAuthor.genre)
+
+      p Description
+      textarea(value=theAuthor.description)

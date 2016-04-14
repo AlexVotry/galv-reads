@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .row
+    .col-sm-4
+      img.books(src= theBook.cover)
+    .col-sm-6
+    h1= theBook.title
+    h3= theAuthor.fname + " " + theAuthor.lname
+    h3= theBook.genre
+    p= theBook.description
+    
+    p
+    form(action="/books/" + theBook.id + "?_method=delete", method="post")
+      input(type="submit" value="delete")
+    

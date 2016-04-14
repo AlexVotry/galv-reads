@@ -1,0 +1,48 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+img.books {
+  width: 90%;
+  margin-bottom: 50px;
+  float: left;
+}
+img.book {
+  width: 80%;
+}
+img.author {
+  height: 70%;
+}
+h2.index {
+  width: 50%;
+  padding: 0;
+  margin: 0;
+}
+h3.title {
+  margin-top: 0;
+}
+.sidebar {
+  background-color: #778899;
+}
+/*p:hover {
+  background-color: yellow;
+}*/
+
+#equal {
+    display: table;
+}
+
+#equal .panel {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+  }
+p.desc {
+  height: 125px;
+  margin-bottom: 20px;
+}

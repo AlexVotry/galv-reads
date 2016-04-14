@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  
+  .row
+    .col-sm-4
+      img.books(src=theBook.cover)
+  
+    .col-sm-4
+      form(action="/books/" + theBook.id + "?_method=put", method="post")
+        div
+          p title
+          input(type="text" name="title" value=theBook.title)
+          
+          p genre
+          input(type="text" name"genre" value=theBook.genre)
+          
+          p Description
+          textarea(value=theBook.description)
+
+          p
+          input(type="submit")
