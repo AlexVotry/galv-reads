@@ -64,9 +64,11 @@ router.post('/', (req, res, next) => {
         lname: req.body.lname,
         biography: req.body.biography,
         portrait: req.body.portrait
-      }, 'id').then(() => {
+      }, 'id').then((authorId) => {
+        authors_books().insert({books_id: data[0][0], authors_id: authorId[0]}).then(() => {
           res.redirect('/books');
         });
+      });
     } else {
       authors_books().insert({books_id: data[0][0], authors_id: data[1].id}).then(() => {
         res.redirect('/books');
