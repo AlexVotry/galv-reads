@@ -3,16 +3,29 @@ extends ../layout
 block content
   h1= theAuthor.title
 
-  form(action="/books/" + theAuthor.id + "?_method=put", method="post")
+  form(action="/authors/" + theAuthor.aid + "?_method=put", method="post")
     div
-      p title
-      input(type="text" name="title" value=theAuthor.title)
-
-      //- p author
-      //- input(type="text" name="author" value=theAuthor.lname)
-      //-
-      p genre
-      input(type="text" name"genre" value=theAuthor.genre)
-
-      p Description
-      textarea(value=theAuthor.description)
+    .row
+      .col-sm-4
+        img.books(src=theAuthor.cover)
+    
+      .col-sm-4
+        H2= theAuthor.fname + " " + theAuthor.lname
+        form(action="/authors/" + theAuthor.aid + "?_method=put", method="post")
+          div
+            p Name
+            input(type="text" name="fname" value=theAuthor.fname)
+            input(type="text" name="lname" value=theAuthor.lname)
+            
+            p Books:
+            input(type="text" name="title" value=theAuthor.title)
+            input(type="text" name="title" value=theAuthor.title)
+            input(type="text" name="title" value=theAuthor.title)
+            
+            p Biography:
+            textarea(name='biography' value=theAuthor.biography)
+            
+            P Picture:
+            input(type="text" name="portrait" value=theAuthor.portrait)
+            p
+            input(type="submit")

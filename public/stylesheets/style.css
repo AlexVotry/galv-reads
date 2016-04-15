@@ -1,12 +1,17 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 
+}
+.wrapper {
+  background-color: #7B68EE;
+}
 a {
-  color: #00B7FF;
+  color:	#FFDEAD;
 }
-
+a:visited {
+  color: 	#FFDEAD;
+}
 img.books {
   width: 90%;
   margin-bottom: 50px;
@@ -27,7 +32,7 @@ h3.title {
   margin-top: 0;
 }
 .sidebar {
-  background-color: #778899;
+  background-color: #3CB371;
 }
 /*p:hover {
   background-color: yellow;

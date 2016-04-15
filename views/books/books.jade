@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-  
   .col-md-2.col-sm-2.col-xs-4.sidebar
     p.content
       a(href= '/books/new'): h3.index Add a Book
@@ -16,13 +15,14 @@ block content
         tr
           td(rowspan= 4): img.book(src= book.cover)
           td: h3= book.title
-          td: a(href= '/books/edit/' + book.id).glyphicon.glyphicon-edit
-          td: a(href= '/books/remove/' + book.id).glyphicon.glyphicon-remove
+          td: a(href= '/books/edit/' + book.bid).glyphicon.glyphicon-edit
+          td: a(href= '/books/remove/' + book.bid).glyphicon.glyphicon-remove
+        tr 
+          td: h4= book.fname + book.lname
         tr
-          td= book.fname + " " + book.lname
-        tr
-          td: h4= book.genre
+          td: h5= book.genre
         tr
           td(colspan= 3)= book.description
         tr
           td  
+        

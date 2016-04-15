@@ -14,10 +14,12 @@ block content
     tbody
       for author in allAuthors
         tr
-          td(rowspan= 2): img.author(src= author.portrait)
+          td(rowspan= 3): img.author(src= author.portrait)
+          td
           td: h3= author.fname + " " + author.lname
-          td: a(href= '/authors/edit/' + author.id).glyphicon.glyphicon-edit
-          td: a(href= 'authors/delete/' + author.id).glyphicon.glyphicon-remove
+          td: a(href= '/authors/edit/' + author.aid).glyphicon.glyphicon-edit
+          td: a(href= 'authors/remove/' + author.aid).glyphicon.glyphicon-remove
+        tr
+          td: author.title
         tr
           td(colspan= 3)= author.biography
-         

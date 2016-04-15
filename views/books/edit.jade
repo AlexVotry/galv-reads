@@ -7,16 +7,24 @@ block content
       img.books(src=theBook.cover)
   
     .col-sm-4
-      form(action="/books/" + theBook.id + "?_method=put", method="post")
+      form(action="/books/" + theBook.bid + "?_method=put", method="post")
         div
           p title
           input(type="text" name="title" value=theBook.title)
+          
+          p authors
+          input(type="text" name="fname" value=theBook.fname)
+          input(type="text" name="lname" value=theBook.lname)
+          input(type="text" name="fname" value=theBook.fname)
+          input(type="text" name="lname" value=theBook.lname)
+          input(type="text" name="fname" value=theBook.fname)
+          input(type="text" name="lname" value=theBook.lname)
           
           p genre
           input(type="text" name"genre" value=theBook.genre)
           
           p Description
-          textarea(value=theBook.description)
+          textarea(name='description' value=theBook.description)
 
           p
           input(type="submit")
