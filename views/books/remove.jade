@@ -10,6 +10,6 @@ block content
     p= theBook.description
     
     p
-    form(action="/books/" + theBook.bid + "?_method=delete", method="post")
+    form(action="/books/" + theBook.bid + '?_method=delete', method="post")
       input(type="submit" value="delete")
     

@@ -12,8 +12,9 @@ a {
 a:visited {
   color: 	#FFDEAD;
 }
+
 img.books {
-  width: 90%;
+  width: 70%;
   margin-bottom: 50px;
   float: left;
 }
@@ -21,7 +22,8 @@ img.book {
   width: 80%;
 }
 img.author {
-  height: 70%;
+  height: 100px;
+  margin-bottom: 50px;
 }
 h2.index {
   width: 50%;
@@ -29,7 +31,8 @@ h2.index {
   margin: 0;
 }
 h3.title {
-  margin-top: 0;
+  margin: 0;
+  padding: 0;
 }
 .sidebar {
   background-color: #3CB371;

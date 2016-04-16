@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex');
-const medthodOverride = require('method-override');
-
 const app = express();
 
 function books() {
@@ -12,8 +10,6 @@ function books() {
 function authors() {
   return knex('authors');
 }
-
-app.use(medthodOverride('_method'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

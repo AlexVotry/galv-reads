@@ -2,25 +2,28 @@ extends ../layout
 
 block content
   .col-md-2.col-sm-2.col-xs-4.sidebar
-    p.content
-      a(href= '/books/new'): h3.index Add a Book
-      a(href= '/books/new'): img.books(src= 'http://assets.feministing.com/wp-content/uploads/2016/01/books.jpg') 
-    p
-      a(href= '/authors/new'): h3.index Add an Author
-      a(href= '/authors/new'): img.books(src='http://www.famousauthors.org/famous-authors.jpg')
+    .col-md-12.col-sm-12.col-xs-12
+      p.content
+        a(href= '/books/new'): h3.index Add a Book
+        a(href= '/books/new'): img.book(src= 'http://assets.feministing.com/wp-content/uploads/2016/01/books.jpg') 
+    .col-md-12.col-sm-12.col-xs-12
+      p
+        a(href= '/authors/new'): h3.index Add an Author
+        a(href= '/authors/new'): img.book(src='http://www.famousauthors.org/famous-authors.jpg')
+
     
   table.col-md-9.col-sm-9.col-xs-4.col-sm-offset-1.panel
     tbody
       for book in allBooks
         tr
-          td(rowspan= 4): img.book(src= book.cover)
-          td: h3= book.title
+          td(rowspan= 4): img.books(src= book.cover)
+          td: h3.title= book.title
           td: a(href= '/books/edit/' + book.bid).glyphicon.glyphicon-edit
           td: a(href= '/books/remove/' + book.bid).glyphicon.glyphicon-remove
         tr 
-          td: h4= book.fname + book.lname
+          td: h4.title= book.fname + book.lname
         tr
-          td: h5= book.genre
+          td: h5.title= book.genre
         tr
           td(colspan= 3)= book.description
         tr
