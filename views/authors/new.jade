@@ -5,29 +5,20 @@ block content
   
   form(action='/authors', method='post')
     #container
-      .col-sm-5
-        p author's name:
+    .col-sm-4
+      .form-group
+        label Author's name:
+        p
         input(type="text" name="fname" placeholder="first")
         input(type="text" name="lname" placeholder="last")
-        
-        p author's picture url:
-        input(type="text" name="portrait")
-        
-        p author's bio:
-        textarea(name="biography")
-      
-      .col-sm-5
-        p book:
-        input(type="text" name="title")
-        
-        p genre:
-        input(type="text" name="genre")
-        
-        P book cover:
-        input(type="text" name="cover")
-        
-        P book description:
-        textarea(name="description")
-        
-        p 
-        input(type="submit")
+      .form-group  
+        label Author's picture url:
+        input.form-control(type="text" name="portrait")
+      .form-group  
+        label Author's bio:
+        textarea.form-control(name="biography")
+      .form-group
+        label book:
+        input.form-control(type="text" name="title")      
+      .form-group
+      button.btn.btn-default.btn-warning.col-xs-6(type='submit') Submit

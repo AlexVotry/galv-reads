@@ -6,11 +6,26 @@ body {
 .wrapper {
   background-color: #7B68EE;
 }
+.navbarCustom {
+    color: #fff;
+    background-color: #3CB371;
+}
+
 a {
-  color:	#FFDEAD;
+  color:	blue;
 }
 a:visited {
-  color: 	#FFDEAD;
+  color: 	gold;
+}
+a:active {
+  color: blue;
+}
+.galv {
+  color: #3CB371;
+  background-color: grey;
+}
+.galv:hover {
+  color: gold;
 }
 
 img.books {
@@ -53,4 +68,14 @@ h3.title {
 p.desc {
   height: 125px;
   margin-bottom: 20px;
+}
+#response {
+  color: red;
+}
+#search {
+  text-align: center;
+  width: 40%;
+  /*height: 70px;*/
+  /*font-size: 3.5em;*/
+  border-radius: 8px;
 }

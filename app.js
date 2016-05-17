@@ -1,40 +1,110 @@
 const express = require('express');
+const knex = require('./db/knex');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
-const routes = require('./routes/index');
+const routes = require('./routes/auth');
+const index = require('./routes/index')
 const users = require('./routes/users');
 const books = require('./routes/books');
 const authors = require('./routes/authors');
 const medthodOverride = require('method-override');
-
-// const auth = require('./routes/auth');
-
+const passport = require('passport');
+// const RedisStore = require('connect-redis');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const app = express();
-// require('dotenv').load();
+require('dotenv').load();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.Host + '/auth/google/callback',
+  scope: ['https://www.googleapis.com/auth/plus.login'],
+  passReqToCallback : true,
+  state: true
+},
+  function(request, accessToken, refreshToken, profile, done) {
+    console.log('profile id: ' + profile.id);
+    console.log('profile');
+    return knex('users').where({ pass: profile.id }).first().then((user) => {
+      console.log('user: ' + user);
+      if (!user) {
+        knex('users').insert({
+        name: profile.displayName,
+        pass: profile.id,
+      }, '*').then(newUser => {
+        return done(null, newUser);
+      });
+    } else {
+        return done(null, profile);
+      }
+    });
+}));
+
+passport.serializeUser((user, done)=> {
+  console.log('serialize', user);
+  done(null, user);
+});
+
+passport.deserializeUser((obj, done)=> {
+  console.log('deserialize', obj);
+  done(null, obj);
+});
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  name: 'webClient2',
+  keys: [process.env.SESSION_KEY]
+}));
 app.use(express.static('public'));
 app.use(medthodOverride('_method'));
-// app.use(session({keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2]}));
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/books', books);
 app.use('/authors', authors);
-// app.use('/', auth);
-// app.use('/users', users);
+app.use('/index', index);
+app.use('/users', users);
+
+// app.get('/', function(req, res){
+//   res.render('index', { user: req.user });
+// });
+
+
+// app.get('/login', function(req, res){
+//   res.render('login', { user: req.user });
+// });
+
+app.get('/auth/google', passport.authenticate('google', { scope: [
+       'https://www.googleapis.com/auth/plus.me']
+}));
+
+app.get( '/auth/google/callback',
+    	passport.authenticate( 'google', {
+    		successRedirect: '/index',
+    		failureRedirect: '/'
+}));
+
+// app.get('/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

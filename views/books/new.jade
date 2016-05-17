@@ -3,28 +3,25 @@ extends ../layout
 block content
   h1 Add a new book
   
-  form(action='/books/', method='post')
-    #container
-      p Book Title:
-      input(type="text" name="title")
-      
-      p Genre:
-      input(type="text" name="genre")
-      
-      p Book cover url:
-      input(type="text" name="cover")
-      
-      p description:
-      textarea(name="description")
-      
-      p Author's name:
-      input(type="text" name="fname" placeholder="first name")
-      input(type="text" name="lname" placeholder="last name")
-      
-      p Author's biography:
-      textarea(name="biography")
-      
-      p Author's picture:
-      input(type="text" name="portrait")
+  form(action='/books/', method='post' role='form')
+  #container.col-xs-4
+    .form-group
+      label(for='title') Book Title:
+      input#title.form-control(type="text" name="title")
+      h5#response
+    .form-group  
+      label(for='genre') Genre:
+      input.form-control(type="text" name="genre")
+    .form-group  
+      label(for='url') Book cover url:
+      input.form-control(type="text" name="cover")
+    .form-group  
+      label(for='description') Description:
+      textarea.form-control(name="description")
+    .form-group 
+      label Author's name:
       p
-      input(type="submit")
+        input#search(type="text" name="fname" placeholder="first name")
+        input#search(type="text" name="lname" placeholder="last name")
+    .form-group  
+      button.btn.btn-default.btn-warning.col-xs-6(type='submit') Submit

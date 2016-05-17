@@ -1,0 +1,13 @@
+extends layout
+block content
+
+  .container-fluid
+    .row.mainContainer2 
+      header.header2.col-xs-12 
+      .row.col-xs-4.col-xs-offset-4.loginBox2
+        .row
+          p.text-center Please Log-In:
+        .row
+          a.col-xs-12(href='/auth/google')
+            //- .g-signin2.specialButton(data-onsuccess='onSignIn')
+            img.center-block.img-responsive.linkedInButton(src="http://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.3-hp2x.gif")

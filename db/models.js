@@ -15,6 +15,10 @@ module.exports = {
   both: function both() {
     return knex('books').join('authors_books', {'authors_books.books_id': 'books.bid'})
     .join('authors', {'authors.aid': 'authors_books.authors_id'});
-  }
+  },
+  ensureAuthenticated: function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
 
 }

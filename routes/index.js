@@ -13,11 +13,15 @@ function authors() {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  books().select().then((records) => {
-    authors().select().then((people) => {
-      res.render('index', { title: 'Galvanize Book Library', allBooks: records, allAuthors: people });
-    })
-  });
+  // if(req.user) {
+    books().select().then((records) => {
+      authors().select().then((people) => {
+        res.render('index', { title: 'Galvanize Book Library', allBooks: records, allAuthors: people });
+      })
+    });
+  // } else {
+  //   res.redirect('/');
+  // }
 });
 
 module.exports = router;
