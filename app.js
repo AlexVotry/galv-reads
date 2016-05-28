@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const knex = require('./db/knex');
 const path = require('path');
@@ -20,7 +22,7 @@ require('dotenv').load();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.use(favicon(path.join(__dirname, 'public','images', 'favicon.ico')));
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -31,10 +33,7 @@ passport.use(new GoogleStrategy({
   state: true
 },
   function(request, accessToken, refreshToken, profile, done) {
-    console.log('profile id: ' + profile.id);
-    console.log('profile');
     return knex('users').where({ pass: profile.id }).first().then((user) => {
-      console.log('user: ' + user);
       if (!user) {
         knex('users').insert({
         name: profile.displayName,
@@ -49,15 +48,12 @@ passport.use(new GoogleStrategy({
 }));
 
 passport.serializeUser((user, done)=> {
-  console.log('serialize', user);
   done(null, user);
 });
 
 passport.deserializeUser((obj, done)=> {
-  console.log('deserialize', obj);
   done(null, obj);
 });
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -82,15 +78,6 @@ app.use('/authors', authors);
 app.use('/index', index);
 app.use('/users', users);
 
-// app.get('/', function(req, res){
-//   res.render('index', { user: req.user });
-// });
-
-
-// app.get('/login', function(req, res){
-//   res.render('login', { user: req.user });
-// });
-
 app.get('/auth/google', passport.authenticate('google', { scope: [
        'https://www.googleapis.com/auth/plus.me']
 }));
@@ -100,11 +87,6 @@ app.get( '/auth/google/callback',
     		successRedirect: '/index',
     		failureRedirect: '/'
 }));
-
-// app.get('/logout', function(req, res){
-//   req.logout();
-//   res.redirect('/');
-// });
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
